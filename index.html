@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors Game</title>
+  <meta name="description" content="Rock Paper Scissors Game"">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Rock Paper Scissors, game">
+  <meta name="author" content="Mateus Teixeira Herculano">
+  <script src="script.js"></script> 
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Rancho&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>Rock Paper Scissors <span id="version">v1.0</span></h1>
+    <hr>
+    <h3 id="winner">" "</h3>
+    <h3 id="choose">Choose your weapow:</h3>
+  </header>
+  <main>
+    <section id="board">
+      <div class="button rock"><button class="choice" onclick="choose(1)">Rock</button></div>
+      <div class="button paper"><button class="choice" onclick="choose(2)">Paper</button></div>
+      <div class="button scissors""><button class="choice" onclick="choose(3)">Scissors</button></div>
+      <div class="button pc"><button id="pc">PC</button></div>
+    </section>
+    <div id="end_game"></div>
+  </main>
+  <div id="container_rules">
+    <div id="rules_text">
+      <span id="close" onclick="closed()">x</span>
+      <p>Really simple:</p><br>
+      <p>ROCK beats SCISSORS</p>
+      <p>SCISSORS beats PAPER</p>
+      <p>PAPER beats ROCK</p><br>
+      <p>Best of 5 rounds</p>
+    </div>
+  </div>
+  <div id='rules_wrap'>
+    <button id="rules" onclick="rules()">RULES</button>
+    <button id="restart" onclick="restart()">Restart</button>
+  </div>
+  <footer>
+    <div id="round">Round: <span id="round_n">1</span></div>
+    <div id="your_score">Your score: <span id="your_score_n">0</span></div>
+    <div id="my_score">My score: <span id="my_score_n">0</span></div>
+  </footer> 
+</body>
+
+</html>
