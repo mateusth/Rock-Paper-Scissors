@@ -7,21 +7,26 @@ function choose(a) {
   let comp_choice;
 
   //transform the PC choice from number into word
-  switch(comp) {
+  switch (comp) {
     case 1:
       comp_choice = "Rock";
+      document.getElementById("img_pc").src = "rock.png" //PC choice image
+      document.getElementById("img_pc").alt = "Rock"
       break;
     case 2:
       comp_choice = "Paper";
+      document.getElementById("img_pc").src = "paper.png"
+      document.getElementById("img_pc").alt = "Paper"
       break;
     default:
       comp_choice = "Scissors";
+      document.getElementById("img_pc").src = "scissors.png"
+      document.getElementById("img_pc").alt = "Scissors"
   }
-  document.getElementById("pc").innerHTML = comp_choice;
 
   //transform your choice from number into word
   let your_choice;
-  switch(a) {
+  switch (a) {
     case 1:
       your_choice = "Rock";
       break;
@@ -31,7 +36,7 @@ function choose(a) {
     default:
       your_choice = "Scissors";
   }
-  
+
   //playing each round
   if (a == comp) {
     situation = `'I also chose ${comp_choice}. It's a tie!`;
@@ -45,13 +50,13 @@ function choose(a) {
   round++;
 
   //testing if the game ends or not
-  if( won == 5 || lost == 5) {
+  if (won == 5 || lost == 5) {
     if (won == 5) {
       document.getElementById("your_score_n").innerHTML = won;
       document.getElementById("winner").innerHTML = victory;
       document.getElementById("winner").style.fontSize = "21px";
       document.getElementById("restart").classList.add("ok");
-      document.getElementById("end_game").style.display = "block";
+      document.getElementById("end_game").style.display = "block"; //stop clicking
       return;
     } else if (lost == 5) {
       document.getElementById("my_score_n").innerHTML = lost;
@@ -63,22 +68,24 @@ function choose(a) {
     }
   }
 
-    //displaying the result
-    document.getElementById("winner").style.visibility = "visible";
-    document.getElementById("round_n").innerHTML = round;
-    document.getElementById("your_score_n").innerHTML = won;
-    document.getElementById("my_score_n").innerHTML = lost;
-    document.getElementById("winner").innerHTML = situation;
+  //displaying the result
+  document.getElementById("winner").style.visibility = "visible";
+  document.getElementById("round_n").innerHTML = round;
+  document.getElementById("your_score_n").innerHTML = won;
+  document.getElementById("my_score_n").innerHTML = lost;
+  document.getElementById("winner").innerHTML = situation;
 }
+
 //Restart button
 function restart() {
   document.getElementById("winner").style.visibility = "hidden";
   document.getElementById("round_n").innerHTML = 1;
   document.getElementById("your_score_n").innerHTML = 0;
   document.getElementById("my_score_n").innerHTML = 0;
-  document.getElementById("winner").style.fontSize = "18px";
+  document.getElementById("winner").style.fontSize = "15px";
   document.getElementById("restart").classList.remove("ok");
   document.getElementById("end_game").style.display = "none";
+  document.getElementById("img_pc").src = "pc.png"
   won = lost = 0, round = 1;
 }
 
