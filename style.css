@@ -3,97 +3,277 @@ let victory = "Victory! You won the game!";
 let defeat = "Try again. You lost the game!";
 
 function choose(a) {
-  let comp = Math.round(Math.random() * 2) + 1; //1=rock, 2=paper, 3=scissors
-  let comp_choice;
-
-  //transform the PC choice from number into word
-  switch (comp) {
-    case 1:
-      comp_choice = "Rock";
-      document.getElementById("img_pc").src = "rock.png" //PC choice image
-      document.getElementById("img_pc").alt = "Rock"
-      break;
-    case 2:
-      comp_choice = "Paper";
-      document.getElementById("img_pc").src = "paper.png"
-      document.getElementById("img_pc").alt = "Paper"
-      break;
-    default:
-      comp_choice = "Scissors";
-      document.getElementById("img_pc").src = "scissors.png"
-      document.getElementById("img_pc").alt = "Scissors"
-  }
-
-  //transform your choice from number into word
-  let your_choice;
-  switch (a) {
-    case 1:
-      your_choice = "Rock";
-      break;
-    case 2:
-      your_choice = "Paper";
-      break;
-    default:
-      your_choice = "Scissors";
-  }
-
-  //playing each round
-  if (a == comp) {
-    situation = `'I also chose ${comp_choice}. It's a tie!`;
-  } else if (a == 1 && comp == 2 || a == 2 && comp == 3 || a == 3 && comp == 1) {
-    situation = `You lost this round! ${comp_choice} beats ${your_choice}.`;
-    lost++;
-  } else {
-    situation = `You won this round! My choice was ${comp_choice}.`;
-    won++;
-  }
-  round++;
-
-  //testing if the game ends or not
-  if (won == 5 || lost == 5) {
-    if (won == 5) {
-      document.getElementById("your_score_n").innerHTML = won;
-      document.getElementById("winner").innerHTML = victory;
-      document.getElementById("winner").style.fontSize = "21px";
-      document.getElementById("restart").classList.add("ok");
-      document.getElementById("end_game").style.display = "block"; //stop clicking
-      return;
-    } else if (lost == 5) {
-      document.getElementById("my_score_n").innerHTML = lost;
-      document.getElementById("winner").innerHTML = defeat;
-      document.getElementById("winner").style.fontSize = "21px";
-      document.getElementById("restart").classList.add("ok");
-      document.getElementById("end_game").style.display = "block";
-      return;
-    }
-  }
-
-  //displaying the result
-  document.getElementById("winner").style.visibility = "visible";
-  document.getElementById("round_n").innerHTML = round;
-  document.getElementById("your_score_n").innerHTML = won;
-  document.getElementById("my_score_n").innerHTML = lost;
-  document.getElementById("winner").innerHTML = situation;
+  * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-//Restart button
-function restart() {
-  document.getElementById("winner").style.visibility = "hidden";
-  document.getElementById("round_n").innerHTML = 1;
-  document.getElementById("your_score_n").innerHTML = 0;
-  document.getElementById("my_score_n").innerHTML = 0;
-  document.getElementById("winner").style.fontSize = "15px";
-  document.getElementById("restart").classList.remove("ok");
-  document.getElementById("end_game").style.display = "none";
-  document.getElementById("img_pc").src = "pc.png"
-  won = lost = 0, round = 1;
+html {
+  background-color: #c5eaf1;
+  padding: 5px
 }
 
-//Rules modal
-function rules() {
-  document.getElementById("container_rules").style.display = "block";
+body {
+  position: relative;
+  background-color: #5bd4ec;
+  padding: 1px 20px;
+  border-radius: 30px 10px 55px 10px;
+  margin: auto;
+  width: 80%;
+  min-width: 400px;
+  max-width: 510px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
-function closed() {
-  document.getElementById("container_rules").style.display = "none";
+header,
+#rules_text {
+  font-family: 'Rancho', sans-serif;
+}
+
+h1 {
+  font-size: 40px;
+  margin-top: 5px;
+  padding: 2px;
+}
+
+hr {
+  margin: 10px 0
+}
+
+h1,
+footer {
+  text-align: center;
+}
+
+/* phrases above title */
+h3 {
+  font-size: 15px;
+  font-family: A Std, monospace;
+  margin-bottom: 10px;
+}
+
+#winner {
+  text-align: center;
+  font-family: A Std, monospace;
+  visibility: hidden
+}
+
+#version {
+  padding: 3px;
+  font-size: 25px;
+  color: red;
+  background-color: white;
+  border: #321e01 solid 2px;
+  border-radius: 68% 32% 53% 47% / 67% 17% 83% 33%;
+  box-shadow: #422800 3px 3px 0 0;
+}
+
+/* Buttons */
+section {
+  display: grid;
+  grid-template-areas:
+    "rock ."
+    "paper pc"
+    "scissors .";
+}
+
+.rock {
+  grid-area: rock;
+}
+
+.paper {
+  grid-area: paper;
+}
+
+.scissors {
+  grid-area: scissors;
+}
+
+.pc {
+  grid-area: pc;
+}
+
+.choice,
+#pc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  margin: 2px auto;
+  padding: 40px 0;
+  border-radius: 68% 32% 53% 47% / 67% 17% 83% 33%;
+  box-shadow: #422800 3px 3px 0 0;
+  transition: 300ms;
+
+}
+
+.choice:hover {
+  background-color: #c5eaf1;
+  cursor: pointer;
+}
+
+.choice:active {
+  box-shadow: #422800 1px 1px 0 0;
+  transform: translate(2px, 2px);
+}
+
+img {
+  height: 50px;
+  width: 80px;
+  transform: rotate(-45deg);
+}
+
+#end_game {
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc(50% - 180px);
+  height: 315px;
+  width: 360px;
+  display: none;
+}
+
+/* When game finishes the Restart buttom move is activated */
+.ok:active {
+  box-shadow: #422800 1px 1px 0 0;
+  transform: translate(2px, 2px);
+}
+
+/* Rules  and Restart */
+
+#rules_wrap {
+  text-align: center;
+  margin: 10px 0 -15px 0;
+}
+
+#rules,
+#restart {
+  border-radius: 20px;
+  box-shadow: #422800 2px 2px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0px 15px;
+  margin: 0px 25px;
+  line-height: 30px;
+  background: linear-gradient(68deg, #8a2387 0%, #e94057 50%, #f27121 100%);
+}
+
+#rules:active {
+  box-shadow: #422800 1px 1px 0 0;
+  transform: translate(2px, 2px);
+}
+
+#container_rules {
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc(50% - 180px);
+  height: 315px;
+  width: 360px;
+  display: none;
+  animation-name: rules_show;
+  animation-duration: 0.5s
+}
+
+@keyframes rules_show {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+#rules_text {
+  position: absolute;
+  top: 10px;
+  left: 40px;
+  background: linear-gradient(68deg, #8a2387 10%, #e94057 60%, #f27121 100%);
+  border-radius: 15px 4px 15px 4px;
+  box-shadow: #422800 3px 3px 0 0;
+  padding: 15px;
+  font-size: 25px;
+  height: 300px;
+  width: 270px;
+  opacity: .98
+}
+
+p {
+  padding: 5px
+}
+
+#close {
+  color: #606066;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#close:hover,
+#close:focus {
+  color: #231515;
+  cursor: pointer;
+}
+
+/* Round and scores */
+footer {
+  font-family: A Std, monospace;
+  font-size: 20px;
+  padding: 3px;
+  max-width: 600px;
+  background: linear-gradient(68deg, #8a2387 0%, #e94057 50%, #f27121 100%);
+  margin: 20px 15% 5px 15%;
+  border-radius: 15px 4px 15px 4px;
+  box-shadow: #422800 3px 3px 0 0;
+}
+
+#round {
+  border-bottom: blue solid 2px;
+}
+
+#your_score {
+  padding: 1px 5px;
+  border-right: blue solid 2px;
+}
+
+#my_score,
+#your_score {
+  display: inline;
+}
+
+/* real footer */
+#signature {
+  display: flex;
+  font-family: "Playwrite CU", cursive;
+  font-size: 13px;
+  font-weight: bold;
+  justify-content: center;
+
+}
+
+a {
+  text-decoration: none;
+  color: black;
+
+}
+
+i {
+  font-size: 15px;
+  margin: 0px 5px;
+}
+
+/* Devices*/
+@media only screen and (max-width: 600px) {
+
+  #rules,
+  #restart,
+  footer {
+    font-size: 15px
+  }
 }
